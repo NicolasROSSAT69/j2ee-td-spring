@@ -1,9 +1,8 @@
 package com.j2ee.j2eetdspring.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -22,7 +21,8 @@ public class User {
     @Column(name = "telephone")
     private String telephone;
 
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "user_id")
+    private List<Adresse> addresses = new ArrayList<Adresse>();
 
 
     public String getUsername() {
