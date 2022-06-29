@@ -2,8 +2,11 @@ package com.j2ee.j2eetdspring.controllers;
 
 import com.j2ee.j2eetdspring.entities.User;
 import com.j2ee.j2eetdspring.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -20,6 +23,12 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT)
     public User createOrUpdate(@RequestBody User user) {
         return userService.createOrUpdate(user);
+    }
+
+    @Operation(summary = "Récupération de tous les utilisateurs")
+    @RequestMapping(path = "/_all", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
 }
