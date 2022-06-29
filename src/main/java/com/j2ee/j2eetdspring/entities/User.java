@@ -56,5 +56,13 @@ public class User {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
+
+    public List<Adresse> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Adresse> addresses) {
+        this.addresses = addresses;
+    }
 }
 
