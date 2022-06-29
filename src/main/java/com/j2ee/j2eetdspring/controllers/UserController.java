@@ -31,4 +31,10 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @Operation(summary = "Suppression d'un utilisateur à partir de son identifiant")
+    @RequestMapping(path = "/{username}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable(value = "username") String username) {
+        userService.deleteUser(username);
+    }
+
 }
