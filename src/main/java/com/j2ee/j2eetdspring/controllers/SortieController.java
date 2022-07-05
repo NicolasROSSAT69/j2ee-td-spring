@@ -38,4 +38,12 @@ public class SortieController {
 
     }
 
+    @Operation(summary = "Suppression d'une sortie à partir de son identifiant")
+    @RequestMapping(path = "/{nom}", method = RequestMethod.DELETE)
+    public void deleteSortie(@PathVariable(value = "nom") String nom) {
+
+        sortieService.deleteSortie(nom);
+
+    }
+
 }

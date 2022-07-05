@@ -31,4 +31,10 @@ public class SortieService {
         return sortieRepository.findAll();
 
     }
+
+    public void deleteSortie(String nom) {
+
+        sortieRepository.deleteById(nom);
+
+    }
 }
