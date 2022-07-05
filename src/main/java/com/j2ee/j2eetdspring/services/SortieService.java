@@ -5,6 +5,7 @@ import com.j2ee.j2eetdspring.repositories.SortieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,12 @@ public class SortieService {
     public Sortie createOrUpdate(Sortie sortie) {
 
         return sortieRepository.save(sortie);
+
+    }
+
+    public List<Sortie> getAllSorties() {
+
+        return sortieRepository.findAll();
 
     }
 }
