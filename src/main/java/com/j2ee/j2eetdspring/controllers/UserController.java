@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public User createOrUpdate(@RequestBody User user) {
+    public User createOrUpdate(@RequestBody @Valid User user) {
 
         return userService.createOrUpdate(user);
 

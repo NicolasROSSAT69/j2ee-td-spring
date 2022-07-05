@@ -1,6 +1,9 @@
 package com.j2ee.j2eetdspring.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,9 +18,13 @@ public class Sortie {
     private Long id;*/
     @Id
     @Column(name = "nom")
+    @NotNull
+    @NotBlank
     private String nom;
 
     @Column(name = "description")
+    @NotNull
+    @NotBlank
     private String description;
 
     @Column(name = "date")
@@ -35,6 +42,7 @@ public class Sortie {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotBlank
     private User encadrant;
 
     @ManyToMany

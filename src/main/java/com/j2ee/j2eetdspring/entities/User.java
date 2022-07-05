@@ -1,6 +1,9 @@
 package com.j2ee.j2eetdspring.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +17,18 @@ public class User {
     private String username;
 
     @Column(name = "firstname")
+    @NotNull
+    @NotBlank
     private String firstName;
 
     @Column(name = "lastname")
+    @NotNull
+    @NotBlank
     private String lastName;
 
     @Column(name = "telephone")
+    @NotNull
+    @NotBlank
     private String telephone;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "user_id")

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +25,7 @@ public class SortieController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Sortie createOrUpdate(@RequestBody Sortie sortie) {
+    public Sortie createOrUpdate(@RequestBody @Valid Sortie sortie) {
 
         return sortieService.createOrUpdate(sortie);
 
