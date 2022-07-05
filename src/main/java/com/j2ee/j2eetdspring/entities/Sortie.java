@@ -33,13 +33,16 @@ public class Sortie {
     @Column(name = "lieu")
     private String lieu;
 
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User encadrant;
 
-    @OneToMany()
-    @JoinColumn(name = "participant_id")
-    private List<User> participant = new ArrayList<User>();*/
+    @ManyToMany
+    @JoinTable(
+            name = "participant",
+            joinColumns = @JoinColumn(name = "sortie_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> participant;
 
 
     /*public Long getId() {
@@ -98,11 +101,19 @@ public class Sortie {
         this.lieu = lieu;
     }
 
-    /*public User getEncadrant() {
+    public User getEncadrant() {
         return encadrant;
     }
 
     public void setEncadrant(User encadrant) {
         this.encadrant = encadrant;
-    }*/
+    }
+
+    public List<User> getParticipant() {
+        return participant;
+    }
+
+    public void setParticipant(List<User> participant) {
+        this.participant = participant;
+    }
 }

@@ -3,6 +3,7 @@ package com.j2ee.j2eetdspring.entities;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -23,6 +24,9 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "user_id")
     private List<Adresse> addresses = new ArrayList<Adresse>();
+
+    /*@ManyToMany(mappedBy = "sortie_user")
+    Set<Sortie> sortie;*/
 
 
     public String getUsername() {
