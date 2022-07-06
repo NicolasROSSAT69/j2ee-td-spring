@@ -13,6 +13,10 @@ import java.util.Set;
 public class User {
 
     @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "username")
     private String username;
 
@@ -31,12 +35,20 @@ public class User {
     @NotBlank
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "user_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private List<Adresse> addresses = new ArrayList<Adresse>();
 
     /*@ManyToMany(mappedBy = "sortie_user")
     Set<Sortie> sortie;*/
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
