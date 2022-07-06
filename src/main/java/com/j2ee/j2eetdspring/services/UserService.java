@@ -1,6 +1,7 @@
 package com.j2ee.j2eetdspring.services;
 
 import com.j2ee.j2eetdspring.entities.User;
+import com.j2ee.j2eetdspring.exceptions.ResourceNotFoundException;
 import com.j2ee.j2eetdspring.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,9 +26,16 @@ public class UserService {
 
     }
 
-    public User getUserById(String username) {
+    public User getUserById(Long id) throws ResourceNotFoundException {
 
-        return userRepository.findById(username).orElse(null);
+        //return userRepository.findById(username).orElse(null);
+        Optional<User> user = userRepository.findById(id);
+
+        if (user.isPresent())
+        {
+            return user.get();
+        }
+        throw new ResourceNotFoundException(User.class, id);
 
     }
 
@@ -36,9 +45,9 @@ public class UserService {
 
     }
 
-    public void deleteUser(String username) {
+    public void deleteUser(Long id) {
 
-        userRepository.deleteById(username);
+        userRepository.deleteById(id);
 
     }
 

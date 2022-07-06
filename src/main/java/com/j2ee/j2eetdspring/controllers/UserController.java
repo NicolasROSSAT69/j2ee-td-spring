@@ -1,6 +1,7 @@
 package com.j2ee.j2eetdspring.controllers;
 
 import com.j2ee.j2eetdspring.entities.User;
+import com.j2ee.j2eetdspring.exceptions.ResourceNotFoundException;
 import com.j2ee.j2eetdspring.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path = "/{username}", method = RequestMethod.GET)
-    public User get(@PathVariable(name = "username") String username) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public User get(@PathVariable(name = "id") Long id) throws ResourceNotFoundException {
 
-        return userService.getUserById(username);
+        return userService.getUserById(id);
 
     }
 
@@ -41,10 +42,10 @@ public class UserController {
     }
 
     @Operation(summary = "Suppression d'un utilisateur à partir de son identifiant")
-    @RequestMapping(path = "/{username}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable(value = "username") String username) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable(value = "id") Long id) {
 
-        userService.deleteUser(username);
+        userService.deleteUser(id);
 
     }
 
