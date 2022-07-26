@@ -1,5 +1,7 @@
 package com.j2ee.j2eetdspring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -38,6 +40,17 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Adresse> addresses = new ArrayList<Adresse>();
+
+    @Column(name = "role")
+    @NotNull
+    @NotBlank
+    private String role;
+
+    @Column(name = "password")
+    @NotNull
+    @NotBlank
+    @JsonIgnore
+    private String password;
 
     /*@ManyToMany(mappedBy = "sortie_user")
     Set<Sortie> sortie;*/
@@ -88,6 +101,22 @@ public class User {
 
     public void setAddresses(List<Adresse> addresses) {
         this.addresses = addresses;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

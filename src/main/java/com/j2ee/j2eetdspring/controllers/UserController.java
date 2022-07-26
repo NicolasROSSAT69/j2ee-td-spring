@@ -59,4 +59,12 @@ public class UserController {
 
     }
 
+    @Operation(summary = "Mise à jour du mot de passe d'un utilisateur")
+    @RequestMapping(path = "/update-password", method = RequestMethod.GET)
+    public void setPassword(@RequestParam (value = "username") String userName, @RequestParam(value = "password") String newPassword) throws IllegalAccessException {
+
+        userService.setPassword(userName, newPassword);
+
+    }
+
 }
