@@ -3,20 +3,19 @@ package com.j2ee.j2eetdspring.services;
 import com.j2ee.j2eetdspring.entities.User;
 import com.j2ee.j2eetdspring.exceptions.ResourceNotFoundException;
 import com.j2ee.j2eetdspring.repositories.UserRepository;
-import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id){
 
         userRepository.deleteById(id);
 
@@ -92,6 +91,21 @@ public class UserService implements UserDetailsService {
     }
 
     public void setPassword(String username, String newPassword) {
+
+        User user = userRepository.findByUsername(username);
+
+        String encodedNewPassword = passwordEncoder.encode(newPassword);
+
+        if (user != null) {
+
+            user.setPassword(encodedNewPassword);
+            userRepository.save(user);
+
+        }
+
+    }
+
+    public void setMyPassword(String username, String newPassword) {
 
         User user = userRepository.findByUsername(username);
 

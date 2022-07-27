@@ -8,8 +8,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -46,6 +49,9 @@ public class UserController {
     }
 
     @Operation(summary = "Suppression d'un utilisateur à partir de son identifiant")
+    @ApiResponse(responseCode = "404", description = "Utilisateur non trouvé" )
+    @ApiResponse(responseCode = "403", description = "Action non autorisée" )
+    @RolesAllowed("ADMIN")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable(value = "id") Long id) {
 
@@ -60,10 +66,24 @@ public class UserController {
     }
 
     @Operation(summary = "Mise à jour du mot de passe d'un utilisateur")
+    @ApiResponse(responseCode = "403", description = "Action non autorisée" )
+    @RolesAllowed("ADMIN")
     @RequestMapping(path = "/update-password", method = RequestMethod.GET)
     public void setPassword(@RequestParam (value = "username") String userName, @RequestParam(value = "password") String newPassword) throws IllegalAccessException {
 
         userService.setPassword(userName, newPassword);
+
+    }
+
+    @Operation(summary = "Mise à jour de mon mot de passe utilisateur")
+    @ApiResponse(responseCode = "403", description = "Action non autorisée" )
+    @RolesAllowed("USER")
+    @RequestMapping(path = "/update-my-password", method = RequestMethod.GET)
+    public void setMyPassword(@RequestParam(value = "password") String newPassword) throws IllegalAccessException {
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        String username = securityContext.getAuthentication().getName();
+        userService.setMyPassword(username, newPassword);
 
     }
 
